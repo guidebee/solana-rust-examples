@@ -1,3 +1,4 @@
+use dotenv::dotenv;
 use solana_client::rpc_client::RpcClient;
 use solana_sdk::pubkey::Pubkey;
 
@@ -9,6 +10,7 @@ struct Env {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    dotenv().ok();
     let env = envy::from_env::<Env>()?;
     let target: Pubkey = env.wallet_pubkey.parse()?;
     let mint_id: Pubkey = env.mint_account_pubkey.parse()?;

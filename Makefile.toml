@@ -1,0 +1,16 @@
+[tasks.build]
+command = "cargo"
+args = ["build"]
+
+[tasks.test]
+command = "cargo"
+args = ["test"]
+
+[tasks.run]
+command = "cargo"
+args = ["run"]
+
+[tasks.associated]
+description = "Run a associated token balance"
+command = "cargo"
+args = ["run", "--bin", "associated_token_balance"]
