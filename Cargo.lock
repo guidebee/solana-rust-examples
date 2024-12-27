@@ -5388,6 +5388,7 @@ dependencies = [
  "solana-cli-config",
  "solana-client",
  "solana-logger",
+ "solana-measure",
  "solana-sdk",
  "spl-associated-token-account",
  "spl-token",
