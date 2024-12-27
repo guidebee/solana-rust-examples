@@ -1433,6 +1433,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "fast-math"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2465292146cdfc2011350fe3b1c616ac83cf0faeedb33463ba1c332ed8948d66"
+dependencies = [
+ "ieee754",
+]
+
+[[package]]
 name = "fastrand"
 version = "2.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2109,6 +2118,12 @@ dependencies = [
  "unicode-bidi",
  "unicode-normalization",
 ]
+
+[[package]]
+name = "ieee754"
+version = "0.2.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9007da9cacbd3e6343da136e98b0d2df013f553d35bdec8b518f07bea768e19c"
 
 [[package]]
 name = "indexmap"
@@ -4461,6 +4476,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dcad4cf5c745ecc15fab2840a5bd35489bf467790359316b66950a8cf62c2a04"
 
 [[package]]
+name = "solana-merkle-tree"
+version = "2.1.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "324e2ee9c0d60b9f6a09363a0c4aa21d4e19f67248eae90fc319061e5603d96b"
+dependencies = [
+ "fast-math",
+ "solana-hash",
+ "solana-sha256-hasher",
+]
+
+[[package]]
 name = "solana-metrics"
 version = "2.1.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5389,6 +5415,8 @@ dependencies = [
  "solana-client",
  "solana-logger",
  "solana-measure",
+ "solana-merkle-tree",
+ "solana-program",
  "solana-sdk",
  "spl-associated-token-account",
  "spl-token",
