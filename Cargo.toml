@@ -21,7 +21,7 @@ spl-token = "6.0.0"
 spl-token-2022 = "4.0.0"
 tokio = { version = "1.42.0", features = ["full"] }
 url = { version = "2.5.2", features = ["serde"] }
-redis = { version = "0.27.6", features = ["aio","tokio-comp","serde_json"] }
+redis = { version = "0.27.6", features = ["aio", "tokio-comp", "serde_json"] }
 mysql = "25.0.1"
 mysql_async = "0.34.2"
 solana-cli-config = "2.1.7"

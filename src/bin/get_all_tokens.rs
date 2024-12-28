@@ -32,7 +32,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Print the token accounts
     for token_account in token_accounts {
         println!("Token Account Pubkey: {}", token_account.pubkey);
-        println!("Token Account Info: {:?}", token_account.account);
+        println!("Token Account Info: {:#?}", token_account.account);
     }
 
     Ok(())

@@ -1,6 +1,6 @@
 use dotenv::dotenv;
-use solana_client::rpc_client::RpcClient;
-use solana_client::rpc_config::RpcSendTransactionConfig;
+use solana_client::{rpc_client::RpcClient, rpc_config::RpcSendTransactionConfig};
+
 use solana_sdk::pubkey::Pubkey;
 use solana_sdk::signature::{Keypair, Signer};
 
@@ -78,7 +78,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 success = true;
             }
             Err(e) => {
-                println!("Error: {:?}", e);
+                println!("Error: {:#?}", e);
                 retries += 1;
                 latest_blockhash = client.get_latest_blockhash()?;
             }

@@ -1,4 +1,5 @@
-#[macro_use] extern crate lazy_static;
+#[macro_use]
+extern crate lazy_static;
 
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
@@ -23,7 +24,6 @@ struct ApiResponse {
 }
 
 use reqwest;
-
 
 async fn fetch_price(token_id: &str) -> Result<ApiResponse, reqwest::Error> {
     let client = reqwest::Client::new();

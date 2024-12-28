@@ -1,5 +1,5 @@
 use solana_merkle_tree::*;
-use solana_program::hash::{hashv};
+use solana_program::hash::hashv;
 
 const LEAF_PREFIX: &[u8] = &[0];
 macro_rules! hash_leaf {
