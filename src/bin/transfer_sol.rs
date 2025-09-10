@@ -19,6 +19,9 @@ async fn main() -> Result<()> {
     println!("Sender with public key: {}", &sender.pubkey());
 
     let recipient = Keypair::new();
+    let sender1 = Keypair::new();
+
+
     println!("recipient with public key: {}", &recipient.pubkey());
 
     let rpc_url = "http://10.1.1.160:8899";
@@ -26,11 +29,23 @@ async fn main() -> Result<()> {
     // Create a connection to Solana cluster
     let client = RpcClient::new_with_commitment(rpc_url.to_string(), CommitmentConfig::confirmed());
 
+
+    // Fund sender with airdrop
+    let airdrop_signature = client
+        .request_airdrop(&sender1.pubkey(), LAMPORTS_PER_SOL)
+        .await?;
+    loop {
+        let confirmed = client.confirm_transaction(&airdrop_signature).await?;
+        if confirmed {
+            break;
+        }
+    }
     let recipient = Keypair::new();
 
     // Check balance before transfer
     let pre_balance1 = client.get_balance(&sender.pubkey()).await?;
     let pre_balance2 = client.get_balance(&recipient.pubkey()).await?;
+    let pre_balance3 = client.get_balance(&sender1.pubkey()).await?;
 
     // Instruction index for the System Program's transfer instruction
     let transfer_instruction_index: u32 = 2;
@@ -47,7 +62,7 @@ async fn main() -> Result<()> {
     let transfer_instruction = Instruction {
         program_id: solana_system_interface::program::id(),
         accounts: vec![
-            AccountMeta::new(sender.pubkey(), true), // from account, is signer and is writable
+            AccountMeta::new(sender1.pubkey(), true), // from account, is signer and is writable
             AccountMeta::new(recipient.pubkey(), false), // to account, is not signer but is writable
         ],
         data: instruction_data,
@@ -67,7 +82,7 @@ async fn main() -> Result<()> {
         &[transfer_instruction, transfer_instruction1],
         Some(&sender.pubkey()),
     );
-    transaction.sign(&[&sender], blockhash);
+    transaction.sign(&[&sender,&sender1], blockhash);
 
     println!("{:#?}", transaction);
 
@@ -79,6 +94,12 @@ async fn main() -> Result<()> {
         "Sender prebalance: {}",
         pre_balance1 as f64 / LAMPORTS_PER_SOL as f64
     );
+
+    println!(
+        "Sender1 prebalance: {}",
+        pre_balance3 as f64 / LAMPORTS_PER_SOL as f64
+    );
+
     println!(
         "Recipient prebalance: {}",
         pre_balance2 as f64 / LAMPORTS_PER_SOL as f64
@@ -87,10 +108,16 @@ async fn main() -> Result<()> {
     // Check balance after transfer
     let post_balance1 = client.get_balance(&sender.pubkey()).await?;
     let post_balance2 = client.get_balance(&recipient.pubkey()).await?;
+    let post_balance3 = client.get_balance(&sender1.pubkey()).await?;
 
     println!(
         "Sender postbalance: {}",
         post_balance1 as f64 / LAMPORTS_PER_SOL as f64
+    );
+
+    println!(
+        "Sender1 postbalance: {}",
+        post_balance3 as f64 / LAMPORTS_PER_SOL as f64
     );
     println!(
         "Recipient postbalance: {}",
